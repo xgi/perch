@@ -12,6 +12,7 @@ import com.google.ar.core.Plane
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.Renderable
+import com.google.ar.sceneform.assets.RenderableSource
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_sceneform.*
@@ -25,7 +26,7 @@ class SceneformActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sceneform)
 
-        initializeGallery()
+        selectedObject = Uri.parse("https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf")
 
         fragment = sceneformFragment.let { it as ArFragment }
         fragment.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->
@@ -37,32 +38,21 @@ class SceneformActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeGallery() {
-        val chair = ImageView(this)
-        chair.setImageResource(R.drawable.chair_thumb)
-        chair.setOnClickListener {
-            selectedObject = Uri.parse("chair.sfb")
-        }
-        galleryLayout.addView(chair)
-
-        val couch = ImageView(this)
-        couch.setImageResource(R.drawable.couch_thumb)
-        couch.setOnClickListener {
-            selectedObject = Uri.parse("couch.sfb")
-        }
-        galleryLayout.addView(couch)
-
-        val lamp = ImageView(this)
-        lamp.setImageResource(R.drawable.lamp_thumb)
-        lamp.setOnClickListener {
-            selectedObject = Uri.parse("lamp.sfb")
-        }
-        galleryLayout.addView(lamp)
-    }
-
+    /**
+     * @param fragment our fragment
+     * @param anchor ARCore anchor from the hit test
+     * @param model our 3D model of choice (in this case from our remote url)
+     *
+     * Uses the ARCore anchor from the hitTest result and builds the Sceneform nodes.
+     * It starts the asynchronous loading of the 3D model using the ModelRenderable builder.
+     */
     private fun placeObject(fragment: ArFragment, anchor: Anchor, model: Uri) {
         ModelRenderable.builder()
-                .setSource(fragment.context, model)
+                .setSource(fragment.context, RenderableSource.builder().setSource(
+                        fragment.context,
+                        model,
+                        RenderableSource.SourceType.GLTF2).build())
+                .setRegistryId(model)
                 .build()
                 .thenAccept {
                     addNodeToScene(fragment, anchor, it)
