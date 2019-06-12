@@ -69,6 +69,8 @@ class SceneformActivity : AppCompatActivity() {
     private fun addNodeToScene(fragment: ArFragment, anchor: Anchor, renderable: Renderable) {
         val anchorNode = AnchorNode(anchor)
         val node = TransformableNode(fragment.transformationSystem)
+        node.scaleController.minScale = 0.14f
+        node.scaleController.maxScale = 0.15f
         node.renderable = renderable
         node.setParent(anchorNode)
         fragment.arSceneView.scene.addChild(anchorNode)
