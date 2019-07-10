@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
             when (it) {
                 0 -> {
                     val intent = Intent(this, SceneformActivity::class.java)
+                    intent.putExtra("uriString", "https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf")
                     startActivity(intent)
                 }
             }

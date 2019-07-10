@@ -5,18 +5,17 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
-import android.widget.ImageView
+import com.faltro.perch.R
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.core.Plane
 import com.google.ar.sceneform.AnchorNode
+import com.google.ar.sceneform.assets.RenderableSource
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.Renderable
-import com.google.ar.sceneform.assets.RenderableSource
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_sceneform.*
-import com.faltro.perch.R
 
 class SceneformActivity : AppCompatActivity() {
     private lateinit var selectedObject: Uri
@@ -26,7 +25,8 @@ class SceneformActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sceneform)
 
-        selectedObject = Uri.parse("https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf")
+        val uriString = intent.getStringExtra("uriString")
+        selectedObject = Uri.parse(uriString)
 
         fragment = sceneformFragment.let { it as ArFragment }
         fragment.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->
