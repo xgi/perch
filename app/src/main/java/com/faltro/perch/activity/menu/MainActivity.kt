@@ -18,10 +18,10 @@ class MainActivity : AppCompatActivity() {
         adapter = MenuAdapter(items)
         recycler_view.adapter = adapter
 
-        swipeContainer.setOnRefreshListener {
+        swipe_layout.setOnRefreshListener {
             fetchItems()
         }
-        swipeContainer.setColorSchemeResources(
+        swipe_layout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -33,6 +33,6 @@ class MainActivity : AppCompatActivity() {
         items.add("b")
         items.add("c")
         adapter.notifyDataSetChanged()
-        swipeContainer.isRefreshing = false
+        swipe_layout.isRefreshing = false
     }
 }
