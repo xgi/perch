@@ -3,6 +3,7 @@ package com.faltro.perch.activity.menu
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
+
 class MenuAdapter(private val items: ArrayList<String>) : RecyclerView.Adapter<MenuViewHolder>() {
     override fun getItemCount() = items.size
 
@@ -12,5 +13,15 @@ class MenuAdapter(private val items: ArrayList<String>) : RecyclerView.Adapter<M
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
         holder.bind(items[position])
+    }
+
+    fun clear() {
+        items.clear()
+        notifyDataSetChanged()
+    }
+
+    fun addAll(list: List<String>) {
+        items.addAll(list)
+        notifyDataSetChanged()
     }
 }
