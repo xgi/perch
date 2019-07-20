@@ -2,8 +2,15 @@ package com.faltro.perch.activity.menu
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.faltro.perch.BuildConfig
 import com.faltro.perch.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +35,13 @@ class MainActivity : AppCompatActivity() {
                 android.R.color.holo_red_light)
     }
 
-    private fun fetchItems() {
+    private fun fetchItems() = CoroutineScope(Dispatchers.Main).launch {
+        val data = async(Dispatchers.IO) {
+            Thread.sleep(2000)
+            URL("https://poly.googleapis.com/v1/assets?key=${BuildConfig.PolyAPIKey}").readText()
+        }
+        Log.w("dummy", data.await())
+
         items.add("a")
         items.add("b")
         items.add("c")
