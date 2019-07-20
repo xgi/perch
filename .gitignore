@@ -2,7 +2,9 @@
 .vscode
 .settings
 .idea
+*.iml
 **/*.iml
+app/gradle.properties
 local.properties
 gradle/
 build/
