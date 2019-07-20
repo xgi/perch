@@ -2,7 +2,6 @@ package com.faltro.perch.activity.menu
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.faltro.perch.BuildConfig
 import com.faltro.perch.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -10,6 +9,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
 import java.net.URL
 
 
@@ -40,11 +42,15 @@ class MainActivity : AppCompatActivity() {
             Thread.sleep(2000)
             URL("https://poly.googleapis.com/v1/assets?key=${BuildConfig.PolyAPIKey}").readText()
         }
-        Log.w("dummy", data.await())
 
-        items.add("a")
-        items.add("b")
-        items.add("c")
+        val ele: JsonElement = Json.unquoted.parseJson(data.await())
+        val assets: JsonArray = ele.jsonObject.getArray("assets")
+
+        for (asset in assets) {
+            val text: String = asset.jsonObject["displayName"].toString()
+            items.add(text)
+        }
+
         adapter.notifyDataSetChanged()
         swipe_layout.isRefreshing = false
     }
