@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.faltro.perch.BuildConfig
 import com.faltro.perch.R
+import com.faltro.perch.activity.model.Submission
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,8 +43,8 @@ class MainActivity : AppCompatActivity() {
         val assets: JsonArray = ele.jsonObject.getArray("assets")
 
         for (asset in assets) {
-            val text: String = asset.jsonObject["displayName"].toString()
-            items.add(text)
+            val submission = Submission(asset.jsonObject)
+            items.add(submission.displayName)
         }
 
         adapter.notifyDataSetChanged()
