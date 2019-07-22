@@ -30,11 +30,6 @@ class MainActivity : AppCompatActivity() {
         swipe_layout.setOnRefreshListener {
             fetchItems()
         }
-        swipe_layout.setColorSchemeResources(
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light)
     }
 
     private fun fetchItems() = CoroutineScope(Dispatchers.Main).launch {
