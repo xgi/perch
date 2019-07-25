@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchItems() = CoroutineScope(Dispatchers.Main).launch {
         val data = async(Dispatchers.IO) {
-            Thread.sleep(2000)
             URL("https://poly.googleapis.com/v1/assets?key=${BuildConfig.PolyAPIKey}").readText()
         }
 
