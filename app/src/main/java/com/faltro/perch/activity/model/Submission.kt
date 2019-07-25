@@ -13,6 +13,8 @@ class Submission(json: JsonObject) {
     val description: String = json["description"]?.content ?: ""
     val createTime: ZonedDateTime? = parseZonedDateTime(json["createTime"])
     val updateTime: ZonedDateTime? = parseZonedDateTime(json["updateTime"])
+    val gltfUrl: String = json["formats"]?.jsonArray?.get(1)?.jsonObject?.get("root")?.jsonObject?.get("url")?.content
+            ?: ""
 
     private fun parseZonedDateTime(jsonElement: JsonElement?): ZonedDateTime? {
         val text: String? = jsonElement?.contentOrNull

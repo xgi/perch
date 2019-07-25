@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = MenuAdapter(items) {
             val intent = Intent(this, SceneformActivity::class.java)
-            intent.putExtra(SceneformActivity.FIELD_URI_STRING, "https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf")
+            intent.putExtra(SceneformActivity.FIELD_URI_STRING, it.gltfUrl)
             startActivity(intent)
         }
         recycler_view.adapter = adapter
