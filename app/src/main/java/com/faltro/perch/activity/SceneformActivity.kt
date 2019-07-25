@@ -18,6 +18,10 @@ import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_sceneform.*
 
 class SceneformActivity : AppCompatActivity() {
+    companion object {
+        const val FIELD_URI_STRING = "uriString"
+    }
+
     private lateinit var selectedObject: Uri
     private lateinit var fragment: ArFragment
 
@@ -25,7 +29,7 @@ class SceneformActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sceneform)
 
-        val uriString = intent.getStringExtra("uriString")
+        val uriString = intent.getStringExtra(FIELD_URI_STRING)
         selectedObject = Uri.parse(uriString)
 
         fragment = sceneformFragment.let { it as ArFragment }

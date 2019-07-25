@@ -1,9 +1,11 @@
 package com.faltro.perch.activity.menu
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.faltro.perch.BuildConfig
 import com.faltro.perch.R
+import com.faltro.perch.activity.SceneformActivity
 import com.faltro.perch.activity.model.Submission
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +19,7 @@ import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
-    private val items: ArrayList<String> = arrayListOf()
+    private val items: ArrayList<Submission> = arrayListOf()
     private lateinit var adapter: MenuAdapter
 
 
@@ -25,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = MenuAdapter(items)
+        adapter = MenuAdapter(items) {
+            val intent = Intent(this, SceneformActivity::class.java)
+            intent.putExtra(SceneformActivity.FIELD_URI_STRING, "https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf")
+            startActivity(intent)
+        }
         recycler_view.adapter = adapter
 
         swipe_layout.setOnRefreshListener {
@@ -44,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         for (asset in assets) {
             val submission = Submission(asset.jsonObject)
-            items.add(submission.displayName)
+            items.add(submission)
         }
 
         adapter.notifyDataSetChanged()

@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.faltro.perch.R
+import com.faltro.perch.activity.model.Submission
 import kotlinx.android.synthetic.main.view_list.view.*
 
-class MenuViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener {
     private var view: View = view
     private var label = view.label
 
@@ -20,13 +21,14 @@ class MenuViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickLi
         Log.d("RecyclerView", "CLICK!")
     }
 
-    fun bind(label_text: String) {
-        label.text = label_text
+    fun bind(submission: Submission) {
+        label.text = submission.displayName
+        view.setOnClickListener { onClick(submission) }
     }
 
     companion object {
-        fun create(parent: ViewGroup) =
-                MenuViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_list, parent, false))
+        fun create(parent: ViewGroup, onClick: (Submission) -> Unit) =
+                MenuViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_list, parent, false), onClick)
     }
 
 }
