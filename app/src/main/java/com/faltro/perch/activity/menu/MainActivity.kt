@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchItems() = CoroutineScope(Dispatchers.Main).launch {
         val data = async(Dispatchers.IO) {
-            URL("https://poly.googleapis.com/v1/assets?key=${BuildConfig.PolyAPIKey}").readText()
+            URL("https://poly.googleapis.com/v1/assets?key=${BuildConfig.PolyAPIKey}&format=GLTF2").readText()
         }
 
         val ele: JsonElement = Json.unquoted.parseJson(data.await())
