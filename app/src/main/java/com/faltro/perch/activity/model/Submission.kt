@@ -1,9 +1,6 @@
 package com.faltro.perch.activity.model
 
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.content
-import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.*
 import java.time.ZonedDateTime
 
 class Submission(json: JsonObject) {
@@ -13,8 +10,7 @@ class Submission(json: JsonObject) {
     val description: String = json["description"]?.content ?: ""
     val createTime: ZonedDateTime? = parseZonedDateTime(json["createTime"])
     val updateTime: ZonedDateTime? = parseZonedDateTime(json["updateTime"])
-    val gltfUrl: String = json["formats"]?.jsonArray?.get(1)?.jsonObject?.get("root")?.jsonObject?.get("url")?.content
-            ?: ""
+    val gltf2Url: String? = parseGltf2Url(json["formats"])
 
     private fun parseZonedDateTime(jsonElement: JsonElement?): ZonedDateTime? {
         val text: String? = jsonElement?.contentOrNull
@@ -24,5 +20,15 @@ class Submission(json: JsonObject) {
         } else {
             null
         }
+    }
+
+    private fun parseGltf2Url(jsonElement: JsonElement?): String? {
+        val formats: JsonArray = jsonElement?.jsonArray ?: return null
+
+        // We currently just assume the GLTF2 format is the last one. If that can no longer be
+        // guaranteed, this should be changed to determine the entry with the correct formatType.
+        val format = formats.last().jsonObject
+
+        return format["root"]?.jsonObject?.get("url")?.contentOrNull
     }
 }

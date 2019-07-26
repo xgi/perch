@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = MenuAdapter(items) {
             val intent = Intent(this, SceneformActivity::class.java)
-            intent.putExtra(SceneformActivity.FIELD_URI_STRING, it.gltfUrl)
+            intent.putExtra(SceneformActivity.FIELD_URI_STRING, it.gltf2Url)
             startActivity(intent)
         }
         recycler_view.adapter = adapter
