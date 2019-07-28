@@ -37,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         swipe_layout.setOnRefreshListener {
             fetchItems()
         }
+
+        // get initial items
+        fetchItems()
     }
 
     private fun fetchItems() = CoroutineScope(Dispatchers.Main).launch {
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         val ele: JsonElement = Json.unquoted.parseJson(data.await())
         val assets: JsonArray = ele.jsonObject.getArray("assets")
 
+        items.clear()
         for (asset in assets) {
             val submission = Submission(asset.jsonObject)
             items.add(submission)
