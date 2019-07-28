@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_sceneform.*
 
 class SceneformActivity : AppCompatActivity() {
     companion object {
-        const val FIELD_URI_STRING = "uriString"
+        const val FIELD_URI_STRING: String = "uriString"
     }
 
     private lateinit var selectedObject: Uri
