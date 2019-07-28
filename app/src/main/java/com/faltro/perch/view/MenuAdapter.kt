@@ -1,8 +1,8 @@
-package com.faltro.perch.activity.menu
+package com.faltro.perch.view
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.faltro.perch.activity.model.Submission
+import com.faltro.perch.model.Submission
 
 
 class MenuAdapter(private val items: ArrayList<Submission>, private val onItemClick: (Submission) -> Unit) : RecyclerView.Adapter<MenuViewHolder>() {

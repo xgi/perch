@@ -1,9 +1,9 @@
-package com.faltro.perch.activity.model
+package com.faltro.perch.model
 
 import kotlinx.serialization.json.*
 import java.time.ZonedDateTime
 
-class Submission(json: JsonObject) {
+public class Submission(json: JsonObject) {
     val name: String = json["name"]?.content ?: ""
     val displayName: String = json["displayName"]?.content ?: ""
     val authorName: String = json["authorName"]?.content ?: ""

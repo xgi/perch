@@ -1,4 +1,4 @@
-package com.faltro.perch.activity.menu
+package com.faltro.perch.view
 
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.faltro.perch.R
-import com.faltro.perch.activity.model.Submission
+import com.faltro.perch.model.Submission
 import kotlinx.android.synthetic.main.view_list.view.*
 
 class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener {
