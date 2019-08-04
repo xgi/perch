@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.faltro.perch.R
 import com.faltro.perch.model.Submission
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_submission.*
 
 
@@ -16,10 +17,12 @@ class SubmissionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_submission)
 
+
         submission = intent.getSerializableExtra(MainActivity.FIELD_SUBMISSION) as Submission
         submissionTitleText.text = submission!!.displayName
         submissionSubtitleText.text = submission!!.authorName
         submissionDescriptionText.text = submission!!.description
+        Picasso.with(this).load(submission!!.thumbnailUrl).into(submissionThumbnail)
     }
 
     fun goToSceneformActivity(view: View) {

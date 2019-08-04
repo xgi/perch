@@ -12,6 +12,7 @@ data class Submission(@Transient val json: JsonObject): Serializable {
     val createTime: ZonedDateTime? = parseZonedDateTime(json["createTime"])
     val updateTime: ZonedDateTime? = parseZonedDateTime(json["updateTime"])
     val gltf2Url: String? = parseGltf2Url(json["formats"])
+    val thumbnailUrl: String? = json["thumbnail"]?.jsonObject?.get("url")?.content ?: ""
 
     private fun parseZonedDateTime(jsonElement: JsonElement?): ZonedDateTime? {
         val text: String? = jsonElement?.contentOrNull
