@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />
@@ -28,6 +29,7 @@
             android:name="com.google.ar.API_KEY"
             android:value="" />
 
+        <activity android:name=".activity.SubmissionActivity"></activity>
         <activity android:name=".activity.SceneformActivity"></activity>
     </application>
 

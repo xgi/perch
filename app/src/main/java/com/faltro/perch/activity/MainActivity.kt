@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         adapter = MenuAdapter(items) {
-            val intent = Intent(this, SceneformActivity::class.java)
+            val intent = Intent(this, SubmissionActivity::class.java)
             intent.putExtra(FIELD_SUBMISSION, it)
             startActivity(intent)
         }
