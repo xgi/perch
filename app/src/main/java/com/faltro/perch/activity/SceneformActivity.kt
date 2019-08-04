@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
 import com.faltro.perch.R
+import com.faltro.perch.model.Submission
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.core.Plane
@@ -18,10 +19,6 @@ import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_sceneform.*
 
 class SceneformActivity : AppCompatActivity() {
-    companion object {
-        const val FIELD_URI_STRING: String = "uriString"
-    }
-
     private lateinit var selectedObject: Uri
     private lateinit var fragment: ArFragment
 
@@ -29,8 +26,9 @@ class SceneformActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sceneform)
 
-        val uriString = intent.getStringExtra(FIELD_URI_STRING)
-        selectedObject = Uri.parse(uriString)
+        val submission: Submission =
+                intent.getSerializableExtra(MainActivity.FIELD_SUBMISSION) as Submission
+        selectedObject = Uri.parse(submission.gltf2Url)
 
         fragment = sceneformFragment.let { it as ArFragment }
         fragment.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->

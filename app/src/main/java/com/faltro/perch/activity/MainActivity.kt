@@ -18,6 +18,11 @@ import kotlinx.serialization.json.JsonElement
 
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        const val FIELD_SUBMISSION: String = "submission"
+    }
+
+
     private val polyClient: PolyClient = PolyClient()
     private val items: ArrayList<Submission> = arrayListOf()
     private lateinit var adapter: MenuAdapter
@@ -29,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = MenuAdapter(items) {
             val intent = Intent(this, SceneformActivity::class.java)
-            intent.putExtra(SceneformActivity.FIELD_URI_STRING, it.gltf2Url)
+            intent.putExtra(FIELD_SUBMISSION, it)
             startActivity(intent)
         }
         recycler_view.adapter = adapter
