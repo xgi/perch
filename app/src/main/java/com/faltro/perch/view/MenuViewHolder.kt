@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.faltro.perch.R
 import com.faltro.perch.model.Submission
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_list.view.*
 
 class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener {
     private var view: View = view
-    private var label = view.label
 
     init {
         view.setOnClickListener(this)
@@ -22,7 +22,9 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
     }
 
     fun bind(submission: Submission) {
-        label.text = submission.displayName
+        view.label.text = submission.displayName
+        view.subtitle.text = submission.authorName
+        Picasso.with(view.context).load(submission.thumbnailUrl).into(view.thumbnail)
         view.setOnClickListener { onClick(submission) }
     }
 
