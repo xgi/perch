@@ -1,5 +1,7 @@
 package com.faltro.perch.view
 
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -9,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.faltro.perch.R
+import com.faltro.perch.activity.MainActivity
+import com.faltro.perch.activity.SubmissionActivity
 import com.faltro.perch.model.Submission
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_list.view.*
@@ -37,7 +41,9 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item!!.itemId) {
                     R.id.view_object -> {
-                        Toast.makeText(view.context, item.title, Toast.LENGTH_SHORT).show();
+                        val intent = Intent(view.context, SubmissionActivity::class.java)
+                        intent.putExtra(MainActivity.FIELD_SUBMISSION, submission)
+                        view.context.startActivity(intent)
                     }
                     R.id.hide -> {
                         Toast.makeText(view.context, item.title, Toast.LENGTH_SHORT).show();
