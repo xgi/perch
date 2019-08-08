@@ -46,11 +46,15 @@
                 android:text="subtitle" />
 
             <TextView
-                android:id="@+id/textViewOptions"
+                android:id="@+id/options"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:paddingTop="3dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="3dp"
                 android:text="&#8942;"
                 android:textAppearance="?android:textAppearanceLarge" />
         </RelativeLayout>

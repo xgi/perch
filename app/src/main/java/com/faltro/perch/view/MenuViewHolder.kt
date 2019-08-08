@@ -1,14 +1,18 @@
 package com.faltro.perch.view
 
+import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.faltro.perch.R
 import com.faltro.perch.model.Submission
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_list.view.*
+
 
 class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener {
     private var view: View = view
@@ -26,6 +30,23 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
         view.subtitle.text = submission.authorName
         Picasso.with(view.context).load(submission.thumbnailUrl).into(view.thumbnail)
         view.setOnClickListener { onClick(submission) }
+
+        view.options.setOnClickListener {
+            val popup = PopupMenu(view.context, view.options)
+            popup.inflate(R.menu.submission_options)
+            popup.setOnMenuItemClickListener { item: MenuItem? ->
+                when (item!!.itemId) {
+                    R.id.view_object -> {
+                        Toast.makeText(view.context, item.title, Toast.LENGTH_SHORT).show();
+                    }
+                    R.id.hide -> {
+                        Toast.makeText(view.context, item.title, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                true
+            }
+            popup.show()
+        }
     }
 
     companion object {
