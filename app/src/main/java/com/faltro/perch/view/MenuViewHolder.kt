@@ -1,7 +1,6 @@
 package com.faltro.perch.view
 
 import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -37,7 +36,7 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
 
         view.options.setOnClickListener {
             val popup = PopupMenu(view.context, view.options)
-            popup.inflate(R.menu.submission_options)
+            popup.inflate(R.menu.submission_actions)
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item!!.itemId) {
                     R.id.view_object -> {

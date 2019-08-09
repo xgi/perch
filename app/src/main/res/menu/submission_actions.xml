@@ -4,6 +4,7 @@
     <item
         android:id="@+id/view_object"
         android:title="View Object" />
+
     <item
         android:id="@+id/hide"
         android:title="Hide" />

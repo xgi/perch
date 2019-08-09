@@ -3,6 +3,7 @@ package com.faltro.perch.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import com.faltro.perch.R
 import com.faltro.perch.model.Submission
 import com.faltro.perch.net.PolyClient
@@ -45,6 +46,11 @@ class MainActivity : AppCompatActivity() {
 
         // get initial items
         fetchItems()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_actions, menu)
+        return true
     }
 
     private fun fetchItems() = CoroutineScope(Dispatchers.Main).launch {
