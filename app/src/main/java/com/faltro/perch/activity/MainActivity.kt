@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import com.faltro.perch.R
+import com.faltro.perch.model.SortType
 import com.faltro.perch.model.Submission
 import com.faltro.perch.net.PolyClient
 import com.faltro.perch.view.MenuAdapter
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private val polyClient: PolyClient = PolyClient()
     private val items: ArrayList<Submission> = arrayListOf()
+    private var sortType: SortType = SortType.BEST
     private lateinit var adapter: MenuAdapter
 
 
@@ -54,9 +57,18 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    fun updateSortType(menuItem: MenuItem) {
+        sortType = SortType.getSortTypeByName(menuItem.title.toString())
+        fetchItems()
+    }
+
     private fun fetchItems() = CoroutineScope(Dispatchers.Main).launch {
+        val params: Map<String, String> = mapOf(
+                Pair("orderBy", sortType.param)
+        )
+
         val data = async(Dispatchers.IO) {
-            polyClient.request()
+            polyClient.request(params)
         }
 
         val ele: JsonElement = Json.unquoted.parseJson(data.await())
