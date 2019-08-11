@@ -14,6 +14,6 @@ class PolyClient {
             paramString += "&${pair.key}=${pair.value}"
         }
 
-        return URL("$BASE_URL?key=${BuildConfig.PolyAPIKey}&format=GLTF2$paramString").readText()
+        return URL("$BASE_URL?key=${BuildConfig.PolyAPIKey}&format=GLTF2&pageSize=40$paramString").readText()
     }
 }
