@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
 import com.faltro.perch.R
 import com.faltro.perch.model.SortType
 import com.faltro.perch.model.Submission
@@ -36,11 +39,12 @@ class MainActivity : AppCompatActivity() {
 
     private var previousTotal = 0
     private var loading = true
-    private var visibleThreshold = 8
+    private var visibleThreshold = 4
     private var firstVisibleItem: Int = 0
     private var visibleItemCount: Int = 0
     private var totalItemCount: Int = 0
     private var nextPageToken: String = ""
+    private var searchKeywords: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         swipe_layout.setOnRefreshListener {
             items.clear()
-            fetchItems()
+            fetchItems(ignorePageToken = true)
         }
 
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -80,12 +84,7 @@ class MainActivity : AppCompatActivity() {
                 if (!loading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) {
                     loading = true
 
-                    if (nextPageToken != "") {
-                        fetchItems(nextPageToken)
-                    } else {
-                        fetchItems()
-                    }
-
+                    fetchItems()
                 }
             }
         })
@@ -96,7 +95,42 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_actions, menu)
-        return true
+
+        val searchItem = menu.findItem(R.id.menu_search)
+        if (searchItem != null) {
+            val searchView = searchItem.actionView as SearchView
+            val editText = searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text)
+            editText.hint = "Enter keywords..."
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    searchKeywords = query ?: ""
+                    items.clear()
+                    fetchItems(ignorePageToken = true)
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return true
+                }
+            })
+
+            // check when searchView is closed
+            // Would prefer to use searchView.onCloseListener, but it doesn't seem to work
+            // https://stackoverflow.com/a/24573307
+            searchView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+                override fun onViewDetachedFromWindow(arg0: View) {
+                    searchKeywords = ""
+                    items.clear()
+                    fetchItems(ignorePageToken = true)
+                }
+
+                override fun onViewAttachedToWindow(arg0: View) {
+                }
+            })
+        }
+
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun updateSortType(menuItem: MenuItem) {
@@ -105,11 +139,12 @@ class MainActivity : AppCompatActivity() {
         fetchItems()
     }
 
-    private fun fetchItems(pageToken: String = "") = CoroutineScope(Dispatchers.Main).launch {
+    private fun fetchItems(ignorePageToken: Boolean = false) = CoroutineScope(Dispatchers.Main).launch {
         val params: MutableMap<String, String> = mutableMapOf(
                 Pair("orderBy", sortType.param)
         )
-        if (pageToken != "") params["pageToken"] = pageToken
+        if (nextPageToken != "" && !ignorePageToken) params["pageToken"] = nextPageToken
+        if (searchKeywords != "") params["keywords"] = searchKeywords
 
         val data = async(Dispatchers.IO) {
             polyClient.request(params)
