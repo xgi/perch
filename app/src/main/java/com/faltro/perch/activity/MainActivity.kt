@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
@@ -125,8 +126,10 @@ class MainActivity : AppCompatActivity() {
             searchView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
                 override fun onViewDetachedFromWindow(arg0: View) {
                     searchKeywords = ""
-                    items.clear()
-                    fetchItems(ignorePageToken = true)
+                    if (searchView.query.toString() != "") {
+                        items.clear()
+                        fetchItems(ignorePageToken = true)
+                    }
                 }
 
                 override fun onViewAttachedToWindow(arg0: View) {
