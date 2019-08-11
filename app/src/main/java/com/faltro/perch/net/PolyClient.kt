@@ -8,10 +8,10 @@ class PolyClient {
         const val BASE_URL: String = "https://poly.googleapis.com/v1/assets"
     }
 
-    fun request(parameters: List<Pair<String, String>> = listOf()): String {
+    fun request(parameters: Map<String, String> = mapOf()): String {
         var paramString = ""
         for (pair in parameters) {
-            paramString += "&${pair.first}=${pair.second}"
+            paramString += "&${pair.key}=${pair.value}"
         }
 
         return URL("$BASE_URL?key=${BuildConfig.PolyAPIKey}&format=GLTF2$paramString").readText()
