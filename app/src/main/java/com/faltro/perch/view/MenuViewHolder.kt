@@ -36,7 +36,7 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
 
         view.options.setOnClickListener {
             val popup = PopupMenu(view.context, view.options)
-            popup.inflate(R.menu.submission_actions)
+            popup.inflate(R.menu.submission_card_actions)
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item!!.itemId) {
                     R.id.view_object -> {

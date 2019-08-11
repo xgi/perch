@@ -3,6 +3,7 @@ package com.faltro.perch.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.View
 import com.faltro.perch.R
 import com.faltro.perch.model.Submission
@@ -27,6 +28,11 @@ class SubmissionActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = submission!!.displayName
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.submission_actions, menu)
+        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
