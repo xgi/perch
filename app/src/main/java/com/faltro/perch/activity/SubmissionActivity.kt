@@ -16,13 +16,22 @@ class SubmissionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_submission)
-
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         submission = intent.getSerializableExtra(MainActivity.FIELD_SUBMISSION) as Submission
         submissionTitleText.text = submission!!.displayName
         submissionSubtitleText.text = submission!!.authorName
         submissionDescriptionText.text = submission!!.description
         Picasso.with(this).load(submission!!.thumbnailUrl).into(submissionThumbnail)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = submission!!.displayName
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     fun goToSceneformActivity(view: View) {
