@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.SubMenu
 import android.view.View
 import android.widget.EditText
 import com.faltro.perch.R
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity() {
     private val items: ArrayList<Submission> = arrayListOf()
     private var sortType: SortType = SortType.BEST
     private lateinit var adapter: MenuAdapter
+
+    private lateinit var sortSubMenu: SubMenu
 
     private var previousTotal = 0
     private var loading = true
@@ -95,6 +98,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_actions, menu)
+        sortSubMenu = menu.findItem(R.id.menu_sort).subMenu
 
         val searchItem = menu.findItem(R.id.menu_search)
         if (searchItem != null) {
@@ -134,9 +138,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateSortType(menuItem: MenuItem) {
+        // update checked status of menu items
+        for (i in 0 until sortSubMenu.size()) {
+            sortSubMenu.getItem(i).isChecked = false
+        }
+        menuItem.isChecked = true
+
+        // update sortType param and reload items
         sortType = SortType.getSortTypeByName(menuItem.title.toString())
         items.clear()
-        fetchItems()
+        fetchItems(ignorePageToken = true)
     }
 
     private fun fetchItems(ignorePageToken: Boolean = false) = CoroutineScope(Dispatchers.Main).launch {

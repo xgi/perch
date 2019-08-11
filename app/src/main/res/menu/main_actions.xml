@@ -18,20 +18,23 @@
         android:title="Sort"
         app:showAsAction="ifRoom">
         <menu>
-            <item
-                android:id="@+id/sort_best"
-                android:onClick="updateSortType"
-                android:title="Best" />
-
-            <item
-                android:id="@+id/sort_new"
-                android:onClick="updateSortType"
-                android:title="New" />
-
-            <item
-                android:id="@+id/sort_old"
-                android:onClick="updateSortType"
-                android:title="Old" />
+            <group
+                android:id="@+id/sort_group"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sort_best"
+                    android:checked="true"
+                    android:onClick="updateSortType"
+                    android:title="Best" />
+                <item
+                    android:id="@+id/sort_new"
+                    android:onClick="updateSortType"
+                    android:title="New" />
+                <item
+                    android:id="@+id/sort_old"
+                    android:onClick="updateSortType"
+                    android:title="Old" />
+            </group>
         </menu>
     </item>
 
