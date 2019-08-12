@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Perch</string>
+    <string name="view">View</string>
+    <string name="save">Save</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="share">Share</string>
+    <string name="download">Download</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="vertical_ellipsis">⋮</string>
+    <string name="best">Best</string>
+    <string name="new_">New</string>
+    <string name="old">Old</string>
 </resources>

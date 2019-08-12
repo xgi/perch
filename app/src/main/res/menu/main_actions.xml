@@ -25,15 +25,15 @@
                     android:id="@+id/sort_best"
                     android:checked="true"
                     android:onClick="updateSortType"
-                    android:title="Best" />
+                    android:title="@string/best" />
                 <item
                     android:id="@+id/sort_new"
                     android:onClick="updateSortType"
-                    android:title="New" />
+                    android:title="@string/new_" />
                 <item
                     android:id="@+id/sort_old"
                     android:onClick="updateSortType"
-                    android:title="Old" />
+                    android:title="@string/old" />
             </group>
         </menu>
     </item>

@@ -54,15 +54,13 @@
                         android:id="@+id/submissionTitleText"
                         style="@style/Base.TextAppearance.AppCompat.Title"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Title Here" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/submissionSubtitleText"
                         style="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Subtitle here" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -85,8 +83,7 @@
                         android:id="@+id/submissionDescriptionText"
                         style="@style/Base.TextAppearance.AppCompat.Body1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Description here..." />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

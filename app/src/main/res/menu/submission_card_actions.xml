@@ -3,10 +3,10 @@
 
     <item
         android:id="@+id/view_submission"
-        android:title="View" />
+        android:title="@string/view" />
 
     <item
         android:id="@+id/save_submission"
-        android:title="Save" />
+        android:title="@string/save" />
 
 </menu>

@@ -17,7 +17,8 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true" />
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/thumbnail" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,8 +34,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="title" />
+                android:layout_gravity="center_vertical" />
 
             <TextView
                 android:id="@+id/subtitle"
@@ -42,8 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/label"
-                android:layout_gravity="center_vertical"
-                android:text="subtitle" />
+                android:layout_gravity="center_vertical" />
 
             <TextView
                 android:id="@+id/options"
@@ -55,7 +54,7 @@
                 android:paddingTop="3dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="3dp"
-                android:text="&#8942;"
+                android:text="@string/vertical_ellipsis"
                 android:textAppearance="?android:textAppearanceLarge" />
         </RelativeLayout>
 
