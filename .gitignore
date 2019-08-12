@@ -8,3 +8,5 @@ app/gradle.properties
 local.properties
 gradle/
 build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
