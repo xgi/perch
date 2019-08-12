@@ -8,20 +8,23 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
+      - run:
+          name: Copy environment variables to gradle properties
+          command: ./envSetup.sh
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Download Dependencies
+          name: Download dependencies
           command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Run Lint
+          name: Run lint
           command: ./gradlew lint
       # - run:
-      #     name: Run Tests
+      #     name: Run tests
       #     command: ./gradlew test
       - store_artifacts:
           path: app/build/reports
