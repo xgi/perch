@@ -7,8 +7,14 @@
         android:title="Bookmark" />
 
     <item
+        android:id="@+id/share"
+        android:title="Share"
+        android:onClick="shareSubmission"/>
+
+    <item
         android:id="@+id/download"
-        android:title="Download" />
+        android:title="Download"
+        android:onClick="downloadSubmission"/>
 
     <item
         android:id="@+id/open_browser"
