@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.faltro.perch.R
+import com.faltro.perch.model.Permission
 import com.faltro.perch.model.Submission
 import com.faltro.perch.util.PermissionHandler
 import com.squareup.picasso.Picasso
@@ -65,7 +66,8 @@ class SubmissionActivity : AppCompatActivity() {
     fun downloadSubmission(menuItem: MenuItem? = null) {
         // First check if we have permission to download. If not, we will request the user to grant
         // permission, and if permission is granted this method will be called again.
-        val hasPermission: Boolean = permissionHandler.getDownloadPermission(this)
+        val hasPermission: Boolean = permissionHandler.getPermission(
+                this, Permission.WRITE_EXTERNAL_STORAGE)
         if (!hasPermission) return
 
         val name = submission!!.name.replace("assets/", "")
@@ -83,9 +85,9 @@ class SubmissionActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
                                             grantResults: IntArray) {
-        val result: Int = permissionHandler.handleRequestResult(
+        val permission: Permission? = permissionHandler.handleRequestResult(
                 requestCode, permissions, grantResults)
-        if (result == PermissionHandler.PERMISSION_WRITE_EXTERNAL_STORAGE) {
+        if (permission == Permission.WRITE_EXTERNAL_STORAGE) {
             downloadSubmission()
         }
     }
