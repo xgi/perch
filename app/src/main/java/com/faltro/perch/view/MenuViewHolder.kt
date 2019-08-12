@@ -39,13 +39,13 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
             popup.inflate(R.menu.submission_card_actions)
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item!!.itemId) {
-                    R.id.view_object -> {
+                    R.id.view_submission -> {
                         val intent = Intent(view.context, SubmissionActivity::class.java)
                         intent.putExtra(MainActivity.FIELD_SUBMISSION, submission)
                         view.context.startActivity(intent)
                     }
-                    R.id.hide -> {
-                        Toast.makeText(view.context, item.title, Toast.LENGTH_SHORT).show();
+                    R.id.save_submission -> {
+                        Toast.makeText(view.context, "Not available", Toast.LENGTH_SHORT).show()
                     }
                 }
                 true

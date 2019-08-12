@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/view_object"
-        android:title="View Object" />
+        android:id="@+id/view_submission"
+        android:title="View" />
 
     <item
-        android:id="@+id/hide"
-        android:title="Hide" />
+        android:id="@+id/save_submission"
+        android:title="Save" />
 
 </menu>
