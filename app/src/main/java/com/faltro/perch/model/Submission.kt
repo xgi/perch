@@ -4,7 +4,7 @@ import kotlinx.serialization.json.*
 import java.io.Serializable
 import java.time.ZonedDateTime
 
-data class Submission(@Transient val json: JsonObject): Serializable {
+data class Submission(@Transient val json: JsonObject) : Serializable {
     val name: String = json["name"]?.content ?: ""
     val displayName: String = json["displayName"]?.content ?: ""
     val authorName: String = json["authorName"]?.content ?: ""
@@ -13,6 +13,7 @@ data class Submission(@Transient val json: JsonObject): Serializable {
     val updateTime: ZonedDateTime? = parseZonedDateTime(json["updateTime"])
     val gltf2Url: String? = parseGltf2Url(json["formats"])
     val thumbnailUrl: String? = json["thumbnail"]?.jsonObject?.get("url")?.content ?: ""
+    val pageUrl: String = "https://poly.google.com/${name.replace("assets/", "view/")}"
 
     private fun parseZonedDateTime(jsonElement: JsonElement?): ZonedDateTime? {
         val text: String? = jsonElement?.contentOrNull

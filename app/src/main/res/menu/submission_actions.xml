@@ -8,16 +8,17 @@
 
     <item
         android:id="@+id/share"
-        android:title="Share"
-        android:onClick="shareSubmission"/>
+        android:onClick="shareSubmission"
+        android:title="Share" />
 
     <item
         android:id="@+id/download"
-        android:title="Download"
-        android:onClick="downloadSubmission"/>
+        android:onClick="downloadSubmission"
+        android:title="Download" />
 
     <item
         android:id="@+id/open_browser"
+        android:onClick="openSubmission"
         android:title="Open in browser" />
 
 </menu>

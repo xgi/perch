@@ -55,11 +55,9 @@ class SubmissionActivity : AppCompatActivity() {
     }
 
     fun shareSubmission(menuItem: MenuItem) {
-        val path = submission!!.name.replace("assets/", "view/")
-
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, "https://poly.google.com/$path")
+        intent.putExtra(Intent.EXTRA_TEXT, submission!!.pageUrl)
         startActivity(Intent.createChooser(intent, "Share"))
     }
 
@@ -81,6 +79,11 @@ class SubmissionActivity : AppCompatActivity() {
         request.allowScanningByMediaScanner()
         val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         dm.enqueue(request)
+    }
+
+    fun openSubmission(menuItem: MenuItem) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(submission!!.pageUrl))
+        startActivity(intent)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
