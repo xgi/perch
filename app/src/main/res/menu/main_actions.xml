@@ -6,7 +6,6 @@
     <item
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search_24dp"
-        android:orderInCategory="1"
         android:title="Search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
@@ -14,9 +13,8 @@
     <item
         android:id="@+id/menu_sort"
         android:icon="@drawable/ic_sort_24dp"
-        android:orderInCategory="1"
         android:title="Sort"
-        app:showAsAction="ifRoom">
+        app:showAsAction="never">
         <menu>
             <group
                 android:id="@+id/sort_group"
@@ -39,11 +37,85 @@
     </item>
 
     <item
-        android:id="@+id/action_two"
-        android:title="Item Two" />
-
-    <item
-        android:id="@+id/action_three"
-        android:title="Item Three" />
+        android:id="@+id/menu_categories"
+        android:icon="@drawable/ic_category_24dp"
+        android:title="Categories"
+        app:showAsAction="never">
+        <menu>
+            <group
+                android:id="@+id/categories_group"
+                android:checkableBehavior="single">
+                <item
+                    android:checked="true"
+                    android:icon="@drawable/ic_pets_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Animals" />
+                <item
+                    android:icon="@drawable/ic_business_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Architecture" />
+                <item
+                    android:icon="@drawable/ic_palette_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Art" />
+                <item
+                    android:icon="@drawable/ic_language_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Culture" />
+                <!--<item-->
+                <!--android:onClick="updateSortType"-->
+                <!--android:icon="@drawable/"-->
+                <!--android:title="Current Events" />-->
+                <item
+                    android:icon="@drawable/ic_restaurant_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Food" />
+                <!--<item-->
+                <!--android:onClick="updateSortType"-->
+                <!--android:icon="@drawable/"-->
+                <!--android:title="Furniture" />-->
+                <item
+                    android:icon="@drawable/ic_account_balance_24dp"
+                    android:onClick="updateSortType"
+                    android:title="History" />
+                <item
+                    android:icon="@drawable/ic_local_florist_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Nature" />
+                <item
+                    android:icon="@drawable/ic_category_black_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Objects" />
+                <item
+                    android:icon="@drawable/ic_people_24dp"
+                    android:onClick="updateSortType"
+                    android:title="People" />
+                <item
+                    android:icon="@drawable/ic_landscape_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Scenes" />
+                <item
+                    android:icon="@drawable/ic_memory_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Science" />
+                <!--<item-->
+                <!--android:onClick="updateSortType"-->
+                <!--android:icon="@drawable/"-->
+                <!--android:title="Sports" />-->
+                <item
+                    android:icon="@drawable/ic_phone_android_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Technology" />
+                <item
+                    android:icon="@drawable/ic_directions_bus_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Transport" />
+                <item
+                    android:icon="@drawable/ic_explore_24dp"
+                    android:onClick="updateSortType"
+                    android:title="Travel" />
+            </group>
+        </menu>
+    </item>
 
 </menu>
