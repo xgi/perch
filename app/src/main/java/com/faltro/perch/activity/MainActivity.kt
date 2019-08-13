@@ -12,6 +12,7 @@ import android.view.SubMenu
 import android.view.View
 import android.widget.EditText
 import com.faltro.perch.R
+import com.faltro.perch.model.Category
 import com.faltro.perch.model.SortType
 import com.faltro.perch.model.Submission
 import com.faltro.perch.net.PolyClient
@@ -36,9 +37,11 @@ class MainActivity : AppCompatActivity() {
     private val polyClient: PolyClient = PolyClient()
     private val items: ArrayList<Submission> = arrayListOf()
     private var sortType: SortType = SortType.BEST
+    private var category: Category = Category.ALL
     private lateinit var adapter: MenuAdapter
 
     private lateinit var sortSubMenu: SubMenu
+    private lateinit var categoriesSubMenu: SubMenu
 
     private var previousTotal = 0
     private var loading = true
@@ -99,6 +102,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_actions, menu)
         sortSubMenu = menu.findItem(R.id.menu_sort).subMenu
+        categoriesSubMenu = menu.findItem(R.id.menu_categories).subMenu
 
         val searchItem = menu.findItem(R.id.menu_search)
         if (searchItem != null) {
@@ -152,9 +156,23 @@ class MainActivity : AppCompatActivity() {
         fetchItems(ignorePageToken = true)
     }
 
+    fun updateCategory(menuItem: MenuItem) {
+        // update checked status of menu items
+        for (i in 0 until categoriesSubMenu.size()) {
+            categoriesSubMenu.getItem(i).isChecked = false
+        }
+        menuItem.isChecked = true
+
+        // update category param and reload items
+        category = Category.getCategoryByName(menuItem.title.toString())
+        items.clear()
+        fetchItems(ignorePageToken = true)
+    }
+
     private fun fetchItems(ignorePageToken: Boolean = false) = CoroutineScope(Dispatchers.Main).launch {
         val params: MutableMap<String, String> = mutableMapOf(
-                Pair("orderBy", sortType.param)
+                Pair("orderBy", sortType.param),
+                Pair("category", category.param)
         )
         if (nextPageToken != "" && !ignorePageToken) params["pageToken"] = nextPageToken
         if (searchKeywords != "") params["keywords"] = searchKeywords

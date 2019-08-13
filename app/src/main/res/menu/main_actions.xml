@@ -20,16 +20,13 @@
                 android:id="@+id/sort_group"
                 android:checkableBehavior="single">
                 <item
-                    android:id="@+id/sort_best"
                     android:checked="true"
                     android:onClick="updateSortType"
                     android:title="@string/best" />
                 <item
-                    android:id="@+id/sort_new"
                     android:onClick="updateSortType"
                     android:title="@string/new_" />
                 <item
-                    android:id="@+id/sort_old"
                     android:onClick="updateSortType"
                     android:title="@string/old" />
             </group>
@@ -47,72 +44,76 @@
                 android:checkableBehavior="single">
                 <item
                     android:checked="true"
+                    android:icon="@drawable/ic_all_inclusive_24dp"
+                    android:onClick="updateCategory"
+                    android:title="All" />
+                <item
                     android:icon="@drawable/ic_pets_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Animals" />
                 <item
                     android:icon="@drawable/ic_business_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Architecture" />
                 <item
                     android:icon="@drawable/ic_palette_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Art" />
                 <item
                     android:icon="@drawable/ic_language_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Culture" />
                 <!--<item-->
-                <!--android:onClick="updateSortType"-->
+                <!--android:onClick="updateCategory"-->
                 <!--android:icon="@drawable/"-->
                 <!--android:title="Current Events" />-->
                 <item
                     android:icon="@drawable/ic_restaurant_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Food" />
                 <!--<item-->
-                <!--android:onClick="updateSortType"-->
+                <!--android:onClick="updateCategory"-->
                 <!--android:icon="@drawable/"-->
                 <!--android:title="Furniture" />-->
                 <item
                     android:icon="@drawable/ic_account_balance_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="History" />
                 <item
                     android:icon="@drawable/ic_local_florist_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Nature" />
                 <item
                     android:icon="@drawable/ic_category_black_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Objects" />
                 <item
                     android:icon="@drawable/ic_people_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="People" />
                 <item
                     android:icon="@drawable/ic_landscape_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Scenes" />
                 <item
                     android:icon="@drawable/ic_memory_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Science" />
                 <!--<item-->
-                <!--android:onClick="updateSortType"-->
+                <!--android:onClick="updateCategory"-->
                 <!--android:icon="@drawable/"-->
                 <!--android:title="Sports" />-->
                 <item
                     android:icon="@drawable/ic_phone_android_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Technology" />
                 <item
                     android:icon="@drawable/ic_directions_bus_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Transport" />
                 <item
                     android:icon="@drawable/ic_explore_24dp"
-                    android:onClick="updateSortType"
+                    android:onClick="updateCategory"
                     android:title="Travel" />
             </group>
         </menu>
