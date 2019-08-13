@@ -44,24 +44,42 @@
                 android:foreground="?android:selectableItemBackground"
                 app:elevation="4dp">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/submissionTitleText"
                         style="@style/Base.TextAppearance.AppCompat.Title"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical" />
 
                     <TextView
                         android:id="@+id/submissionSubtitleText"
                         style="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/submissionTitleText"
+                        android:layout_gravity="center_vertical" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:onClick="goToSceneformActivity"
+                            android:background="@drawable/ic_play_arrow_36dp" />
+                    </LinearLayout>
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -86,14 +104,6 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:onClick="goToSceneformActivity"
-                android:text="View Object" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
