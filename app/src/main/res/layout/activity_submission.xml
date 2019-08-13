@@ -75,6 +75,11 @@
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/ic_star_border_36dp"/>
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginEnd="6dp"
                             android:onClick="goToSceneformActivity"
                             android:background="@drawable/ic_play_arrow_36dp" />
