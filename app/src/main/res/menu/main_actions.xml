@@ -12,7 +12,6 @@
 
     <item
         android:id="@+id/menu_sort"
-        android:icon="@drawable/ic_sort_24dp"
         android:title="Sort"
         app:showAsAction="never">
         <menu>
@@ -35,7 +34,6 @@
 
     <item
         android:id="@+id/menu_categories"
-        android:icon="@drawable/ic_category_24dp"
         android:title="Categories"
         app:showAsAction="never">
         <menu>
@@ -115,6 +113,31 @@
                     android:icon="@drawable/ic_explore_24dp"
                     android:onClick="updateCategory"
                     android:title="Travel" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu_complexity"
+        android:title="Max Complexity"
+        app:showAsAction="never">
+        <menu>
+            <group
+                android:id="@+id/complexity_group"
+                android:checkableBehavior="single">
+                <item
+                    android:checked="true"
+                    android:onClick="updateComplexity"
+                    android:title="Any" />
+                <item
+                    android:onClick="updateComplexity"
+                    android:title="Simple" />
+                <item
+                    android:onClick="updateComplexity"
+                    android:title="Medium" />
+                <item
+                    android:onClick="updateComplexity"
+                    android:title="Complex" />
             </group>
         </menu>
     </item>
