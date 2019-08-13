@@ -25,7 +25,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="4dp"
                 android:foreground="?android:selectableItemBackground"
-                app:elevation="4dp">
+                app:cardElevation="1dp">
 
                 <ImageView
                     android:id="@+id/submissionThumbnail"
@@ -42,7 +42,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="4dp"
                 android:foreground="?android:selectableItemBackground"
-                app:elevation="4dp">
+                app:cardElevation="1dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -55,6 +55,7 @@
                         style="@style/Base.TextAppearance.AppCompat.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="title"
                         android:layout_gravity="center_vertical" />
 
                     <TextView
@@ -63,6 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/submissionTitleText"
+                        android:text="subtitle"
                         android:layout_gravity="center_vertical" />
 
                     <LinearLayout
@@ -93,8 +95,9 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
                 android:foreground="?android:selectableItemBackground"
-                app:elevation="4dp">
+                app:cardElevation="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,7 +109,8 @@
                         android:id="@+id/submissionDescriptionText"
                         style="@style/Base.TextAppearance.AppCompat.Body1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="description here"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
