@@ -11,4 +11,27 @@
     <string name="best">Best</string>
     <string name="new_">New</string>
     <string name="old">Old</string>
+    <string name="categories">Categories</string>
+    <string name="all">All</string>
+    <string name="animals">Animals</string>
+    <string name="architecture">Architecture</string>
+    <string name="art">Art</string>
+    <string name="culture">Culture</string>
+    <string name="food">Food</string>
+    <string name="history">History</string>
+    <string name="nature">Nature</string>
+    <string name="objects">Objects</string>
+    <string name="people">People</string>
+    <string name="scenes">Scenes</string>
+    <string name="science">Science</string>
+    <string name="technology">Technology</string>
+    <string name="transport">Transport</string>
+    <string name="travel">Travel</string>
+    <string name="max_complexity">Max Complexity</string>
+    <string name="any">Any</string>
+    <string name="simple">Simple</string>
+    <string name="medium">Medium</string>
+    <string name="complex">Complex</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
 </resources>

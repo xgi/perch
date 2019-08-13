@@ -56,7 +56,6 @@
                         style="@style/Base.TextAppearance.AppCompat.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="title"
                         android:layout_gravity="center_vertical" />
 
                     <TextView
@@ -65,7 +64,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/submissionTitleText"
-                        android:text="subtitle"
                         android:layout_gravity="center_vertical" />
 
                     <LinearLayout

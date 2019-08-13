@@ -6,13 +6,13 @@
     <item
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search_24dp"
-        android:title="Search"
+        android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 
     <item
         android:id="@+id/menu_sort"
-        android:title="Sort"
+        android:title="@string/sort"
         app:showAsAction="never">
         <menu>
             <group
@@ -34,7 +34,7 @@
 
     <item
         android:id="@+id/menu_categories"
-        android:title="Categories"
+        android:title="@string/categories"
         app:showAsAction="never">
         <menu>
             <group
@@ -44,23 +44,23 @@
                     android:checked="true"
                     android:icon="@drawable/ic_all_inclusive_24dp"
                     android:onClick="updateCategory"
-                    android:title="All" />
+                    android:title="@string/all" />
                 <item
                     android:icon="@drawable/ic_pets_24dp"
                     android:onClick="updateCategory"
-                    android:title="Animals" />
+                    android:title="@string/animals" />
                 <item
                     android:icon="@drawable/ic_business_24dp"
                     android:onClick="updateCategory"
-                    android:title="Architecture" />
+                    android:title="@string/architecture" />
                 <item
                     android:icon="@drawable/ic_palette_24dp"
                     android:onClick="updateCategory"
-                    android:title="Art" />
+                    android:title="@string/art" />
                 <item
                     android:icon="@drawable/ic_language_24dp"
                     android:onClick="updateCategory"
-                    android:title="Culture" />
+                    android:title="@string/culture" />
                 <!--<item-->
                 <!--android:onClick="updateCategory"-->
                 <!--android:icon="@drawable/"-->
@@ -68,7 +68,7 @@
                 <item
                     android:icon="@drawable/ic_restaurant_24dp"
                     android:onClick="updateCategory"
-                    android:title="Food" />
+                    android:title="@string/food" />
                 <!--<item-->
                 <!--android:onClick="updateCategory"-->
                 <!--android:icon="@drawable/"-->
@@ -76,27 +76,27 @@
                 <item
                     android:icon="@drawable/ic_account_balance_24dp"
                     android:onClick="updateCategory"
-                    android:title="History" />
+                    android:title="@string/history" />
                 <item
                     android:icon="@drawable/ic_local_florist_24dp"
                     android:onClick="updateCategory"
-                    android:title="Nature" />
+                    android:title="@string/nature" />
                 <item
                     android:icon="@drawable/ic_category_black_24dp"
                     android:onClick="updateCategory"
-                    android:title="Objects" />
+                    android:title="@string/objects" />
                 <item
                     android:icon="@drawable/ic_people_24dp"
                     android:onClick="updateCategory"
-                    android:title="People" />
+                    android:title="@string/people" />
                 <item
                     android:icon="@drawable/ic_landscape_24dp"
                     android:onClick="updateCategory"
-                    android:title="Scenes" />
+                    android:title="@string/scenes" />
                 <item
                     android:icon="@drawable/ic_memory_24dp"
                     android:onClick="updateCategory"
-                    android:title="Science" />
+                    android:title="@string/science" />
                 <!--<item-->
                 <!--android:onClick="updateCategory"-->
                 <!--android:icon="@drawable/"-->
@@ -104,22 +104,22 @@
                 <item
                     android:icon="@drawable/ic_phone_android_24dp"
                     android:onClick="updateCategory"
-                    android:title="Technology" />
+                    android:title="@string/technology" />
                 <item
                     android:icon="@drawable/ic_directions_bus_24dp"
                     android:onClick="updateCategory"
-                    android:title="Transport" />
+                    android:title="@string/transport" />
                 <item
                     android:icon="@drawable/ic_explore_24dp"
                     android:onClick="updateCategory"
-                    android:title="Travel" />
+                    android:title="@string/travel" />
             </group>
         </menu>
     </item>
 
     <item
         android:id="@+id/menu_complexity"
-        android:title="Max Complexity"
+        android:title="@string/max_complexity"
         app:showAsAction="never">
         <menu>
             <group
@@ -128,16 +128,16 @@
                 <item
                     android:checked="true"
                     android:onClick="updateComplexity"
-                    android:title="Any" />
+                    android:title="@string/any" />
                 <item
                     android:onClick="updateComplexity"
-                    android:title="Simple" />
+                    android:title="@string/simple" />
                 <item
                     android:onClick="updateComplexity"
-                    android:title="Medium" />
+                    android:title="@string/medium" />
                 <item
                     android:onClick="updateComplexity"
-                    android:title="Complex" />
+                    android:title="@string/complex" />
             </group>
         </menu>
     </item>
