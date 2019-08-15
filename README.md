@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/release/xgi/perch.svg)](https://github.com/xgi/perch/releases)
 [![CircleCI](https://circleci.com/gh/xgi/perch/tree/master.svg?style=svg)](https://circleci.com/gh/xgi/perch/tree/master)
 
-Perch is an augmented reality (AR) Android app for viewing 3D models from [Google Poly](https://poly.google.com).
+Perch is an augmented reality (AR) Android app for viewing 3D models from [Google Poly](https://poly.google.com) in real environments.
 
 ---
 
