@@ -22,7 +22,7 @@ with [USB debugging enabled](https://developer.android.com/studio/debug/dev-opti
 Developing with [Android Studio](https://developer.android.com/studio) is highly recommended, but
 the project can be built and tested with the external Gradle tasks:
 
-* `./gradlew installDebug` - builds/install the debug build
+* `./gradlew installDebug` - build/install the debug build
 * `./gradlew lintDebug` - lint debug build; report generates in `./app/build/reports`
 * `./gradlew testDebugUnitTest` - unit test the debug build
 

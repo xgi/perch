@@ -6,6 +6,7 @@
 **/*.iml
 app/gradle.properties
 local.properties
+todo
 gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
