@@ -17,8 +17,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.submission_card.view.*
 
 
-class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener {
-    private var view: View = view
+class SubmissionViewHolder(private var view: View, private val onClick: (Submission) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
     init {
         view.setOnClickListener(this)
@@ -29,11 +28,13 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
     }
 
     fun bind(submission: Submission) {
+        // update fields with submission details
         view.label.text = submission.displayName
         view.subtitle.text = submission.authorName
         Picasso.with(view.context).load(submission.thumbnailUrl).into(view.thumbnail)
         view.setOnClickListener { onClick(submission) }
 
+        // add popup menu actions (shown when pressing the "3 dots" button on the right of the card)
         view.options.setOnClickListener {
             val popup = PopupMenu(view.context, view.options)
             popup.inflate(R.menu.submission_card_actions)
@@ -56,7 +57,7 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
 
     companion object {
         fun create(parent: ViewGroup, onClick: (Submission) -> Unit) =
-                MenuViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.submission_card, parent, false), onClick)
+                SubmissionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.submission_card, parent, false), onClick)
     }
 
 }

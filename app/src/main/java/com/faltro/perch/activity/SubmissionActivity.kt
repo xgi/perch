@@ -28,6 +28,7 @@ class SubmissionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_submission)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        // update fields with submission details
         submission = intent.getSerializableExtra(MainActivity.FIELD_SUBMISSION) as Submission
         submissionTitleText.text = submission!!.displayName
         submissionSubtitleText.text = submission!!.authorName
@@ -37,6 +38,7 @@ class SubmissionActivity : AppCompatActivity() {
         submissionDescriptionText.text = submission!!.description
         Picasso.with(this).load(submission!!.thumbnailUrl).into(submissionThumbnail)
 
+        // add back button and title to toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = submission!!.displayName
@@ -52,12 +54,33 @@ class SubmissionActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
+        val permission: Permission? = permissionHandler.handleRequestResult(
+                requestCode, permissions, grantResults)
+        if (permission == Permission.WRITE_EXTERNAL_STORAGE) {
+            downloadSubmission()
+        }
+    }
+
+    /**
+     * Switch to the SceneformActivity for viewing the submission with the camera.
+     *
+     * @param view the clicked View initiating the change
+     */
     fun goToSceneformActivity(view: View) {
         val intent = Intent(this, SceneformActivity::class.java)
         intent.putExtra(MainActivity.FIELD_SUBMISSION, submission)
         startActivity(intent)
     }
 
+    /**
+     * Open the system's share menu for this submission's page URL.
+     *
+     * Example page URL: https://poly.google.com/view/6dM1J6f6pm9
+     *
+     * @param menuItem the clicked MenuItem which initiated the action
+     */
     fun shareSubmission(menuItem: MenuItem) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
@@ -65,6 +88,15 @@ class SubmissionActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(intent, "Share"))
     }
 
+    /**
+     * Initiate a system download for the GLTF object model.
+     *
+     * If required permissions are not met, attempt to request them. In that case, in order to not
+     * block the thread, this method is aborted and the PermissionHandler will re-call this method
+     * if permission has been granted.
+     *
+     * @param menuItem the clicked Menuitem which initiated the action
+     */
     fun downloadSubmission(menuItem: MenuItem? = null) {
         // First check if we have permission to download. If not, we will request the user to grant
         // permission, and if permission is granted this method will be called again.
@@ -85,18 +117,16 @@ class SubmissionActivity : AppCompatActivity() {
         dm.enqueue(request)
     }
 
+    /**
+     * Open a submission's page URL in the browser.
+     *
+     * Uses the same URL as shareSubmission.
+     *
+     * @param menuItem the clicked Menuitem which initiated the action
+     */
     fun openSubmission(menuItem: MenuItem) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(submission!!.pageUrl))
         startActivity(intent)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
-                                            grantResults: IntArray) {
-        val permission: Permission? = permissionHandler.handleRequestResult(
-                requestCode, permissions, grantResults)
-        if (permission == Permission.WRITE_EXTERNAL_STORAGE) {
-            downloadSubmission()
-        }
     }
 
 }

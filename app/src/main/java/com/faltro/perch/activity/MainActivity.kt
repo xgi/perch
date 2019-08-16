@@ -17,7 +17,7 @@ import com.faltro.perch.model.Complexity
 import com.faltro.perch.model.SortType
 import com.faltro.perch.model.Submission
 import com.faltro.perch.net.PolyClient
-import com.faltro.perch.view.MenuAdapter
+import com.faltro.perch.view.MainAdaptor
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private val polyClient: PolyClient = PolyClient()
     private val items: ArrayList<Submission> = arrayListOf()
-    private lateinit var adapter: MenuAdapter
+    private lateinit var adapter: MainAdaptor
 
     private lateinit var sortSubMenu: SubMenu
     private lateinit var categoriesSubMenu: SubMenu
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = GridLayoutManager(this, 2)
         recycler_view.layoutManager = layoutManager
 
-        adapter = MenuAdapter(items) {
+        adapter = MainAdaptor(items) {
             val intent = Intent(this, SubmissionActivity::class.java)
             intent.putExtra(FIELD_SUBMISSION, it)
             startActivity(intent)
