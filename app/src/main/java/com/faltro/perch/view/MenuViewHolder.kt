@@ -14,7 +14,7 @@ import com.faltro.perch.activity.MainActivity
 import com.faltro.perch.activity.SubmissionActivity
 import com.faltro.perch.model.Submission
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.view_list.view.*
+import kotlinx.android.synthetic.main.submission_card.view.*
 
 
 class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener {
@@ -56,7 +56,7 @@ class MenuViewHolder(view: View, private val onClick: (Submission) -> Unit) : Re
 
     companion object {
         fun create(parent: ViewGroup, onClick: (Submission) -> Unit) =
-                MenuViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_list, parent, false), onClick)
+                MenuViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.submission_card, parent, false), onClick)
     }
 
 }
