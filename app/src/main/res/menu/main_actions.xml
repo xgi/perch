@@ -142,4 +142,10 @@
         </menu>
     </item>
 
+    <item
+        android:checkable="true"
+        android:onClick="updateCurated"
+        android:title="@string/curated"
+        app:showAsAction="never" />
+
 </menu>

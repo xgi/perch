@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private var sortType: SortType = SortType.BEST
     private var category: Category = Category.ALL
     private var maxComplexity: Complexity = Complexity.ANY
+    private var curated: Boolean = false
     private lateinit var adapter: MenuAdapter
 
     private lateinit var sortSubMenu: SubMenu
@@ -186,11 +187,19 @@ class MainActivity : AppCompatActivity() {
         fetchItems(ignorePageToken = true)
     }
 
+    fun updateCurated(menuItem: MenuItem) {
+        menuItem.isChecked = !menuItem.isChecked
+        curated = menuItem.isChecked
+        items.clear()
+        fetchItems(ignorePageToken = true)
+    }
+
     private fun fetchItems(ignorePageToken: Boolean = false) = CoroutineScope(Dispatchers.Main).launch {
         val params: MutableMap<String, String> = mutableMapOf(
                 Pair("orderBy", sortType.param),
                 Pair("category", category.param),
-                Pair("maxComplexity", maxComplexity.param)
+                Pair("maxComplexity", maxComplexity.param),
+                Pair("curated", curated.toString())
         )
         if (nextPageToken != "" && !ignorePageToken) params["pageToken"] = nextPageToken
         if (searchKeywords != "") params["keywords"] = searchKeywords

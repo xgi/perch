@@ -12,6 +12,7 @@ data class Submission(@Transient val json: JsonObject) : Serializable {
     val license: String = json["license"]?.content ?: ""
     val createTime: ZonedDateTime? = parseZonedDateTime(json["createTime"])
     val updateTime: ZonedDateTime? = parseZonedDateTime(json["updateTime"])
+    val curated: Boolean = json["isCurated"]?.boolean ?: false
     val gltf2Url: String? = parseGltf2Url(json["formats"])
     val thumbnailUrl: String? = json["thumbnail"]?.jsonObject?.get("url")?.content ?: ""
     val pageUrl: String = "https://poly.google.com/${name.replace("assets/", "view/")}"
