@@ -32,29 +32,27 @@ import kotlinx.serialization.json.content
 class MainActivity : AppCompatActivity() {
     companion object {
         const val FIELD_SUBMISSION: String = "submission"
+        const val RECYCLER_VISIBLE_THRESHOLD: Int = 4
     }
 
 
     private val polyClient: PolyClient = PolyClient()
     private val items: ArrayList<Submission> = arrayListOf()
-    private var sortType: SortType = SortType.BEST
-    private var category: Category = Category.ALL
-    private var maxComplexity: Complexity = Complexity.ANY
-    private var curated: Boolean = false
     private lateinit var adapter: MenuAdapter
 
     private lateinit var sortSubMenu: SubMenu
     private lateinit var categoriesSubMenu: SubMenu
     private lateinit var complexitySubMenu: SubMenu
 
-    private var previousTotal = 0
-    private var loading = true
-    private var visibleThreshold = 4
-    private var firstVisibleItem: Int = 0
-    private var visibleItemCount: Int = 0
-    private var totalItemCount: Int = 0
-    private var nextPageToken: String = ""
+    private var sortType: SortType = SortType.BEST
+    private var category: Category = Category.ALL
+    private var maxComplexity: Complexity = Complexity.ANY
+    private var curated: Boolean = false
     private var searchKeywords: String = ""
+    private var nextPageToken: String = ""
+
+    private var recyclerPreviousTotal = 0
+    private var recyclerLoading = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,24 +75,27 @@ class MainActivity : AppCompatActivity() {
             fetchItems(ignorePageToken = true)
         }
 
+        // Add infinite scrolling to the RecyclerView. When we near the button of the loaded
+        // submissions, call fetchItems to load the next batch.
+        // adapted from: https://stackoverflow.com/a/26561717
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                visibleItemCount = recycler_view.childCount
-                totalItemCount = layoutManager.itemCount
-                firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+                val visibleItemCount: Int = recycler_view.childCount
+                val totalItemCount: Int = layoutManager.itemCount
+                val firstVisibleItem: Int = layoutManager.findFirstVisibleItemPosition()
 
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false
-                        previousTotal = totalItemCount
+                if (recyclerLoading) {
+                    if (totalItemCount > recyclerPreviousTotal) {
+                        recyclerLoading = false
+                        recyclerPreviousTotal = totalItemCount
                     }
-                }
-                if (!loading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) {
-                    loading = true
-
-                    fetchItems()
+                } else {
+                    if (totalItemCount - visibleItemCount <= firstVisibleItem + RECYCLER_VISIBLE_THRESHOLD) {
+                        recyclerLoading = true
+                        fetchItems()
+                    }
                 }
             }
         })
@@ -109,12 +110,17 @@ class MainActivity : AppCompatActivity() {
         categoriesSubMenu = menu.findItem(R.id.menu_categories).subMenu
         complexitySubMenu = menu.findItem(R.id.menu_complexity).subMenu
 
+        // Add actions to search button in toolbar: when clicked, creates a SearchView with an
+        // input field to filter submissions. The field stays open until explicitly dismissed. While
+        // it's open, other settings (i.e. category, sort type) can also be changed.
         val searchItem = menu.findItem(R.id.menu_search)
         if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView
             val editText = searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text)
             editText.hint = "Enter keywords..."
 
+            // To reduce API calls, we only reload items on submit. It may be worth further testing
+            // the experience of updating onChange.
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     searchKeywords = query ?: ""
@@ -148,6 +154,11 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Apply a change to the sort type radios and their associated field (called when clicked).
+     *
+     * @param menuItem the clicked MenuItem
+     */
     fun updateSortType(menuItem: MenuItem) {
         // update checked status of menu items
         for (i in 0 until sortSubMenu.size()) {
@@ -161,6 +172,11 @@ class MainActivity : AppCompatActivity() {
         fetchItems(ignorePageToken = true)
     }
 
+    /**
+     * Apply a change to the category radios and their associated field (called when clicked).
+     *
+     * @param menuItem the clicked MenuItem
+     */
     fun updateCategory(menuItem: MenuItem) {
         // update checked status of menu items
         for (i in 0 until categoriesSubMenu.size()) {
@@ -174,6 +190,11 @@ class MainActivity : AppCompatActivity() {
         fetchItems(ignorePageToken = true)
     }
 
+    /**
+     * Apply a change to the max complexity radios and their associated field (called when clicked).
+     *
+     * @param menuItem the clicked MenuItem
+     */
     fun updateComplexity(menuItem: MenuItem) {
         // update checked status of menu items
         for (i in 0 until complexitySubMenu.size()) {
@@ -187,6 +208,11 @@ class MainActivity : AppCompatActivity() {
         fetchItems(ignorePageToken = true)
     }
 
+    /**
+     * Apply a change to the curated checkbox and its associated field (called when clicked).
+     *
+     * @param menuItem the clicked MenuItem
+     */
     fun updateCurated(menuItem: MenuItem) {
         menuItem.isChecked = !menuItem.isChecked
         curated = menuItem.isChecked
@@ -194,7 +220,14 @@ class MainActivity : AppCompatActivity() {
         fetchItems(ignorePageToken = true)
     }
 
+    /**
+     * Asynchronously retrieve items from the Poly API and updates items when complete.
+     *
+     * @param ignorePageToken whether to ignore the page token and start at the first page
+     */
     private fun fetchItems(ignorePageToken: Boolean = false) = CoroutineScope(Dispatchers.Main).launch {
+        // add user-specifiable params to request
+        // available options: https://developers.google.com/poly/reference/api/rest/v1/assets/list
         val params: MutableMap<String, String> = mutableMapOf(
                 Pair("orderBy", sortType.param),
                 Pair("category", category.param),
@@ -210,8 +243,12 @@ class MainActivity : AppCompatActivity() {
 
         val ele: JsonElement = Json.unquoted.parseJson(data.await())
         val assets: JsonArray = ele.jsonObject.getArray("assets")
+
+        // each page has a page token which is added as a param to the next request in order to
+        // retrieve the next page of results
         nextPageToken = ele.jsonObject["nextPageToken"]?.content ?: ""
 
+        // add all retrieved submissions to adaptor
         for (asset in assets) {
             val submission = Submission(asset.jsonObject)
             items.add(submission)
