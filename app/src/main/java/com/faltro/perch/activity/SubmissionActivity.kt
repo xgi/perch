@@ -16,6 +16,7 @@ import com.faltro.perch.model.Submission
 import com.faltro.perch.util.PermissionHandler
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_submission.*
+import java.time.format.DateTimeFormatter
 
 
 class SubmissionActivity : AppCompatActivity() {
@@ -30,6 +31,9 @@ class SubmissionActivity : AppCompatActivity() {
         submission = intent.getSerializableExtra(MainActivity.FIELD_SUBMISSION) as Submission
         submissionTitleText.text = submission!!.displayName
         submissionSubtitleText.text = submission!!.authorName
+        submissionDateText.text = submission!!.updateTime!!.format(
+                DateTimeFormatter.ofPattern("MMMM dd, yyyy"))
+        submissionLicenseText.text = submission!!.license
         submissionDescriptionText.text = submission!!.description
         Picasso.with(this).load(submission!!.thumbnailUrl).into(submissionThumbnail)
 

@@ -9,6 +9,7 @@ data class Submission(@Transient val json: JsonObject) : Serializable {
     val displayName: String = json["displayName"]?.content ?: ""
     val authorName: String = json["authorName"]?.content ?: ""
     val description: String = json["description"]?.content ?: ""
+    val license: String = json["license"]?.content ?: ""
     val createTime: ZonedDateTime? = parseZonedDateTime(json["createTime"])
     val updateTime: ZonedDateTime? = parseZonedDateTime(json["updateTime"])
     val gltf2Url: String? = parseGltf2Url(json["formats"])
