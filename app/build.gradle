@@ -13,6 +13,15 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        setProperty("archivesBaseName", "perch-v$versionName")
+    }
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("KEYSTORE") ?: "../priv/upload-keystore.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
     }
     buildTypes {
         debug {
@@ -20,8 +29,10 @@ android {
         }
         release {
             minifyEnabled false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'String', "PolyAPIKey", PolyAPIKey
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {

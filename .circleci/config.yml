@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Copy environment variables to gradle properties
+          name: Handle/setup environmental variables
           command: ./envSetup.sh
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
@@ -31,3 +31,9 @@ jobs:
           destination: reports
       # - store_test_results:
       #     path: app/build/test-results
+      - run:
+          name: Build signed release APK
+          command: ./gradlew assembleRelease
+      - store_artifacts:
+          path: app/release
+          destination: release

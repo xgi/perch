@@ -11,3 +11,7 @@ if [ ! -f "$APP_GRADLE_PROPERTIES" ]; then
     echo "Writing PolyAPIKey to app/gradle.properties..."
     echo "PolyAPIKey=\"$PolyAPIKey\"" >> $APP_GRADLE_PROPERTIES
 fi
+
+# decode keystore to filesystem
+echo $ENCODED_KEYSTORE | base64 -di >> ${HOME}/perch/upload-keystore.jks
+echo 'export KEYSTORE=${HOME}/perch/upload-keystore.jks' >> $BASH_ENV

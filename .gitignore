@@ -9,5 +9,7 @@ local.properties
 todo
 gradle/
 build/
+release/
+priv/
 !gradle/wrapper/gradle-wrapper.jar
 !gradle/wrapper/gradle-wrapper.properties
