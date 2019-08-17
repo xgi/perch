@@ -13,7 +13,11 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        setProperty("archivesBaseName", "perch-v$versionName")
+        applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "perch-v${defaultConfig.versionName}.apk"
+            }
+        }
     }
     signingConfigs {
         release {

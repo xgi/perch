@@ -35,5 +35,5 @@ jobs:
           name: Build signed release APK
           command: ./gradlew assembleRelease
       - store_artifacts:
-          path: app/release
+          path: app/build/outputs/apk/release
           destination: release
