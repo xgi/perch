@@ -221,6 +221,9 @@ class MainActivity : AppCompatActivity() {
      * @param ignorePageToken whether to ignore the page token and start at the first page
      */
     private fun fetchItems(ignorePageToken: Boolean = false) = CoroutineScope(Dispatchers.Main).launch {
+        // ensure refresh icon is displayed, since this method may have been called outside the UI
+        swipe_layout.isRefreshing = true
+
         // add user-specifiable params to request
         // available options: https://developers.google.com/poly/reference/api/rest/v1/assets/list
         val params: MutableMap<String, String> = mutableMapOf(
@@ -281,6 +284,7 @@ class MainActivity : AppCompatActivity() {
             error_message.text = message
             error_message.visibility = View.VISIBLE
             recycler_view.visibility = View.GONE
+            swipe_layout.isRefreshing = false
         } else {
             error_message.visibility = View.GONE
             recycler_view.visibility = View.VISIBLE
