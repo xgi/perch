@@ -23,10 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.content
+import kotlinx.serialization.json.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -140,10 +137,8 @@ class MainActivity : AppCompatActivity() {
             searchView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
                 override fun onViewDetachedFromWindow(arg0: View) {
                     searchKeywords = ""
-                    if (searchView.query.toString() != "") {
-                        items.clear()
-                        fetchItems(ignorePageToken = true)
-                    }
+                    items.clear()
+                    fetchItems(ignorePageToken = true)
                 }
 
                 override fun onViewAttachedToWindow(arg0: View) {
@@ -241,12 +236,30 @@ class MainActivity : AppCompatActivity() {
             polyClient.request(params)
         }
 
-        val ele: JsonElement = Json.unquoted.parseJson(data.await())
-        val assets: JsonArray = ele.jsonObject.getArray("assets")
+        val response: JsonObject = Json.unquoted.parseJson(data.await()).jsonObject
+
+        // check for failed response conditions (contains error or is empty)
+        when {
+            response.isEmpty() -> {
+                updateErrorMessage(getString(R.string.error_no_submissions))
+                return@launch
+            }
+            response.containsKey("error") -> {
+                val message: String = response["error"]!!.jsonObject["message"]?.content ?: ""
+                val status: String = response["error"]!!.jsonObject["status"]?.content ?: ""
+                val code: Int = response["error"]!!.jsonObject["code"]?.int ?: -1
+                updateErrorMessage("${getString(R.string.error_generic)}\n$message\n$status ($code)")
+                return@launch
+            }
+            else -> // no error; ensure message is cleared
+                updateErrorMessage()
+        }
+
+        val assets: JsonArray = response.getArray("assets")
 
         // each page has a page token which is added as a param to the next request in order to
         // retrieve the next page of results
-        nextPageToken = ele.jsonObject["nextPageToken"]?.content ?: ""
+        nextPageToken = response["nextPageToken"]?.content ?: ""
 
         // add all retrieved submissions to adaptor
         for (asset in assets) {
@@ -256,5 +269,21 @@ class MainActivity : AppCompatActivity() {
 
         adapter.notifyDataSetChanged()
         swipe_layout.isRefreshing = false
+    }
+
+    /**
+     * Update the displayed error message. If no message given, the error is hidden.
+     *
+     * @param message the error message to display
+     */
+    private fun updateErrorMessage(message: String = "") {
+        if (message != "") {
+            error_message.text = message
+            error_message.visibility = View.VISIBLE
+            recycler_view.visibility = View.GONE
+        } else {
+            error_message.visibility = View.GONE
+            recycler_view.visibility = View.VISIBLE
+        }
     }
 }

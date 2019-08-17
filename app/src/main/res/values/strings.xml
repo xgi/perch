@@ -35,4 +35,6 @@
     <string name="search">Search</string>
     <string name="sort">Sort</string>
     <string name="curated">Curated</string>
+    <string name="error_no_submissions">Sorry, we couldn\'t find any submissions.</string>
+    <string name="error_generic">Sorry, an error occurred.</string>
 </resources>
