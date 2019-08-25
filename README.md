@@ -7,7 +7,7 @@ Perch is an augmented reality (AR) Android app for viewing 3D models from [Googl
 
 ---
 
-![todo: 3 side-by-side screenshots here](/res/screenshots.png)
+![Perch screenshots](/res/screenshots.png)
 
 ---
 
