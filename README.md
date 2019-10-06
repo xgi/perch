@@ -13,7 +13,7 @@ Perch is an augmented reality (AR) Android app for viewing 3D models from [Googl
 
 # Download
 
-Download Perch from [the releases page](https://github.com/xgi/houdoku/releases).
+Download Perch from [the releases page](https://github.com/xgi/perch/releases).
 
 # Testing
 
